@@ -12,7 +12,7 @@ A simple JavaScript calculator with a clean and accessible design. It can perfor
 
 ## Live Demo
 
-You can try the calculator in action by visiting the [Live Demo](#) (insert the live demo link here).
+You can try the calculator in action by visiting the [Live Demo](https://danteagarwal.github.io/calculator/).
 
 ## Usage
 
@@ -30,7 +30,7 @@ Follow these steps to get started with the project:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/calculator.git
+    git clone https://github.com/DanteAgarwal/calculator.git
     ```
 
 2. Open the project folder in your code editor.
@@ -55,6 +55,6 @@ This project is licensed under the MIT License. For more details, see the [LICEN
 
 - [Highlight.js](https://highlightjs.org/) for code syntax highlighting
 
-Feel free to contribute to this project or use it in your own applications. If you have any suggestions or issues, please create an [issue](https://github.com/your-username/calculator/issues) on GitHub.
+Feel free to contribute to this project or use it in your own applications. If you have any suggestions or issues, please create an [issue](https://github.com/DanteAgarwal/calculator/issues) on GitHub.
 
 Enjoy using the JavaScript Calculator!
