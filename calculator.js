@@ -1,81 +1,112 @@
+"use strict";
 
-/* Define global variables for storing operand, operator values */
-let firstOperand = "";
-let secondOperand = "";
-let currentOperator = null;
-let resetScreen = false;
+// Function to initialize the calculator when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    hljs.highlightAll();
+    // Define global variables for storing operand, operator values
+    let firstOperand = "";
+    let currentOperator = null;
+    let resetScreen = false;
+    let isDecimal = false;
 
-/* Get reference to the display and buttons on the page */
-const display = document.querySelector("#display");
-const numButtons = document.querySelectorAll(".numButton");
-const opButtons = document.querySelectorAll(".opButton");
-const eqButton = document.querySelector(".eqButton");
-const clearButton = document.querySelector(".clearButton");
+    // Get reference to the display and buttons on the page
+    const display = document.querySelector("#display");
+    const buttons = document.querySelectorAll("button");
 
-/* Event listener for number buttons. On click, append the number to the display */
-numButtons.forEach(button => {
-    button.addEventListener('click', () => appendNumber(button.textContent));
-});
+    // Event listener for all buttons. On click, handle the button action
+    buttons.forEach(button => {
+        button.addEventListener('click', () => handleButtonClick(button.textContent));
+    });
 
-/* Event listener for operator buttons. On click, store the first operand and set the current operator */
-opButtons.forEach(button => {
-    button.addEventListener('click', () => setOperation(button.textContent));
-});
+    // Event listener for keyboard inputs
+    document.addEventListener('keydown', event => {
+        const key = event.key;
+        if ('0123456789+-*/.=C'.includes(key)) {
+            handleButtonClick(key);
+        }
+        if (key === 'Enter') {
+            handleButtonClick('=');
+        }
+        if (key === 'Backspace') {
+            handleBackspace();
+        }
+    });
 
-/* Event listener for equals button. On click, perform the calculation and display the result */
-eqButton.addEventListener('click', () => compute());
+    // Function to handle button clicks
+    function handleButtonClick(value) {
+        if (value >= '0' && value <= '9') {
+            if (resetScreen) {
+                display.textContent = "";
+                resetScreen = false;
+            }
+            display.textContent += value;
+        } else if ('+-*/'.includes(value)) {
+            if (currentOperator !== null) {
+                compute();
+            }
+            firstOperand = parseFloat(display.textContent);
+            currentOperator = value;
+            resetScreen = true;
+            isDecimal = false;
+        } else if (value === '=') {
+            if (currentOperator === null || resetScreen) {
+                return; // Do nothing if no operator or reset screen
+            }
+            compute();
+            currentOperator = null;
+        } else if (value === 'C') {
+            clear();
+        } else if (value === '.') {
+            if (!isDecimal) {
+                isDecimal = true;
+                display.textContent += value;
+            }
+        }
+    }
 
-/* Event listener for clear button. On click, clear all stored data and reset the display */
-clearButton.addEventListener('click', () => clear());
+    // Function to handle the Backspace key
+    function handleBackspace() {
+        if (resetScreen) {
+            return; // Do nothing if the screen is already reset
+        }
+        const currentText = display.textContent;
+        display.textContent = currentText.slice(0, -1);
+        if (currentText.slice(-1) === '.') {
+            isDecimal = false; // Re-enable decimal if it's deleted
+        }
+    }
 
-/* Function to append the clicked number to the display */
-function appendNumber(num) {
-    if (resetScreen) {
-        display.textContent = "";
+    // Function to perform the calculation and display the result
+    function compute() {
+        const secondOperand = parseFloat(display.textContent);
+        switch (currentOperator) {
+            case '+':
+                display.textContent = firstOperand + secondOperand;
+                break;
+            case '-':
+                display.textContent = firstOperand - secondOperand;
+                break;
+            case '*':
+                display.textContent = firstOperand * secondOperand;
+                break;
+            case '/':
+                if (secondOperand === 0) {
+                    display.textContent = 'Error! Div by 0';
+                } else {
+                    display.textContent = firstOperand / secondOperand;
+                }
+                break;
+        }
+        resetScreen = true;
+        isDecimal = false;
+    }
+
+    // Function to clear all stored data and reset the display
+    function clear() {
+        display.textContent = "0";
+        firstOperand = "";
+        currentOperator = null;
         resetScreen = false;
+        isDecimal = false;
     }
-    display.textContent += num;
-}
-
-/* Function to set the operator and store the first operand */
-function setOperation(op) {
-    if (currentOperator !== null) compute();
-    firstOperand = display.textContent;
-    currentOperator = op;
-    resetScreen = true;
-}
-
-/* Function to perform the calculation and display the result */
-function compute() {
-    secondOperand = display.textContent;
-    display.textContent = operate(currentOperator, firstOperand, secondOperand);
-    currentOperator = null;
-}
-
-/* Function to clear all stored data and reset the display */
-function clear() {
-    display.textContent = "0";
-    firstOperand = "";
-    secondOperand = "";
-    currentOperator = null;
-}
-
-/* Function to perform the selected operation on the two operands */
-function operate(operator, a, b) {
-    a = Number(a);
-    b = Number(b);
-    switch (operator) {
-        case '+':
-            return a + b;
-        case '-':
-            return a - b;
-        case '*':
-            return a * b;
-        case '/':
-            /* Error handling for division by zero */
-            if (b === 0) return 'Error! Div by 0';
-            return a / b;
-        default:
-            return b;
-    }
-}
+});

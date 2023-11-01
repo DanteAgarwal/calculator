@@ -3,30 +3,29 @@
 <head>
     <title>JavaScript Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
 </head>
 <body>
     <div id="calculator">
-        <div id="display">0</div>
-        <button class="numButton">1</button>
-        <button class="numButton">2</button>
-        <button class="numButton">3</button>
-        <button class="opButton">+</button>
-        <button class="numButton">4</button>
-        <button class="numButton">5</button>
-        <button class="numButton">6</button>
-        <button class="opButton">-</button>
-        <button class="numButton">7</button>
-        <button class="numButton">8</button>
-        <button class="numButton">9</button>
-        <button class="opButton">*</button>
-        <button class="numButton">0</button>
-        <button class="opButton">/</button>
-        <button class="eqButton">=</button>
-        <button class="clearButton">C</button>
+        <div id="display" aria-label="Calculator Display" aria-describedby="display-description" tabindex="0" class="accessible"></div>
+        <button class="numButton learn-more">1</button>
+        <button class="numButton learn-more">2</button>
+        <button class="numButton learn-more">3</button>
+        <button class="opButton learn-more">+</button>
+        <button class="numButton learn-more">4</button>
+        <button class="numButton learn-more">5</button>
+        <button class="numButton learn-more">6</button>
+        <button class="opButton learn-more">-</button>
+        <button class="numButton learn-more">7</button>
+        <button class="numButton learn-more">8</button>
+        <button class="numButton learn-more">9</button>
+        <button class="opButton learn-more">*</button>
+        <button class="numButton learn-more">0</button>
+        <button class="opButton learn-more">/</button>
+        <button class="eqButton learn-more">=</button>
+        <button class="clearButton learn-more">C</button>
     </div>
-    <script src="calculator.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-     -->
+    <script src="calculator.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 </body>
 </html>
